@@ -271,7 +271,7 @@ class account_invoice(models.Model):
     amount_tax = fields.Float(string='Tax', digits=dp.get_precision('Account'),
         store=True, readonly=True, compute='_compute_amount')
     amount_total = fields.Float(string='Total', digits=dp.get_precision('Account'),
-        store=True, readonly=True, compute='_compute_amount')
+        store=True, readonly=True, compute='_compute_amount', track_visibility='always')
 
     currency_id = fields.Many2one('res.currency', string='Currency',
         required=True, readonly=True, states={'draft': [('readonly', False)]},

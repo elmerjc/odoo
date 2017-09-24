@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <form string="Parametros">
                     <group>
-                        <field name="partner_id"/>
+                        <field name="partner_id" domain="[('customer','=',True)]" options="{'no_create_edit': True}"/>
                     </group>
                     <p class="oe_gray">
                         Elegir el rango de fecha

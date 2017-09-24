@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <template id="bolivia_report.report_sale_order" name="Reporte avanzado de pedidos">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="report.bolivia_report_layout">
+                    <div id="report_page" class="page">
+                        <div class="oe_structure"/>
+                        <h3 class="text-center">
+                            <span>REPORTE DE PEDIDOS</span>
+                        </h3>
+                        <div style="height:40px;"></div>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th style="width: 90px;">NUMERO</th>
+                                    <th style="width: 70px;">FECHA</th>
+                                    <th style="width: 120px;">CLIENTE</th>
+                                    <th style="width: 70px;">SALDO</th>
+                                    <th style="width: 70px;">TOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="suma" t-value="0"/>
+                                <t t-set="saldo" t-value="0"/>
+                                <tr t-foreach="get_data_sale_order()" t-as="data">
+                                    <t t-set="suma" t-value="suma + data['amount_total']"/>
+                                    <t t-set="saldo" t-value="saldo + data['residual']"/>
+                                    <td><span t-esc="data['numero']"/></td>
+                                    <td><span t-esc="time.strftime('%d-%m-%Y',time.strptime(data['date_order'],'%Y-%m-%d'))"/></td>
+                                    <td><span t-esc="data['cliente']"/></td>
+                                    <td class="text-right"><span t-esc="'{0:,}'.format(data['residual'])"/></td>
+                                    <td class="text-right"><span t-esc="'{0:,}'.format(data['amount_total'])"/></td>
+                                </tr>
+                            </tbody>
+                            <tfooter>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td><strong>Total</strong></td>
+                                    <td class="text-right"><t t-esc="'{0:,}'.format(saldo)"/></td>
+                                    <td class="text-right"><t t-esc="'{0:,}'.format(suma)"/></td>
+                                </tr>
+                            </tfooter>
+                        </table>
+                        <table>
+                            <tr>
+                                
+                            </tr>
+                        </table>
+                        <div class="oe_structure"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</data>
+</openerp>

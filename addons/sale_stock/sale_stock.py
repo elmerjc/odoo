@@ -354,11 +354,12 @@ class sale_order_line(osv.osv):
                     uom_record = product_obj.uom_id
                 compare_qty = float_compare(product_obj.virtual_available, qty, precision_rounding=uom_record.rounding)
                 if compare_qty == -1:
-                    warn_msg = _('You plan to sell %.2f %s but you only have %.2f %s available !\nThe real stock is %.2f %s. (without reservations)') % \
-                        (qty, uom_record.name,
-                         max(0,product_obj.virtual_available), uom_record.name,
-                         max(0,product_obj.qty_available), uom_record.name)
-                    warning_msgs += _("Not enough stock ! : ") + warn_msg + "\n\n"
+                	raise osv.except_osv(_('Not enough stock ! : '), _('No puede vender %.2f %s') % (qty, uom_record.name))
+                    #warn_msg = _('You plan to sell %.2f %s but you only have %.2f %s available !\nThe real stock is %.2f %s. (without reservations)') % \
+                    #    (qty, uom_record.name,
+                    #     max(0,product_obj.virtual_available), uom_record.name,
+                    #     max(0,product_obj.qty_available), uom_record.name)
+                    #warning_msgs += _("Not enough stock ! : ") + warn_msg + "\n\n"
 
         #update of warning messages
         if warning_msgs:

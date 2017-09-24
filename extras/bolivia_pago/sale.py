@@ -49,7 +49,8 @@ class sale_order(osv.osv):
 
 	_columns = {
 		'partner_amount_positive': fields.function(_partner_amount_positive, string='Monto a favor', digits=dp.get_precision('Account'), type='float'),
-		'pagos_ids': fields.one2many('bolivia.pago', 'sale_id', 'Pagos'),
+		'pagos_ids': fields.one2many('bolivia.pago', 'sale_id', 'Pagos', readonly=False, 
+			states={'draft': [('readonly', False)], 'sent': [('readonly', False)], 'progress': [('readonly', False)], 'manual': [('readonly', False)]}),
 		'residual': fields.float(string='Saldo', digits=dp.get_precision('Account'), compute='_compute_residual'),
 		'pagos_realizados': fields.float(string='Pagos realizados', digits=dp.get_precision('Account'), compute='_compute_residual'),
 	}

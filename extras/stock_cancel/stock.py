@@ -52,10 +52,10 @@ class stock_picking(models.Model):
             if picking.invoice_state == 'invoiced' and not picking.invoice_id:
                 picking.invoice_state = '2binvoiced'
             # Deleting the existing instance of workflow
-            workflow.trg_delete(
-                self._uid, 'stock.picking', picking.id, self._cr)
-            workflow.trg_create(
-                self._uid, 'stock.picking', picking.id, self._cr)
-            picking.message_post(
-                _("La orden de entrega se rehizo, convirtiendose en estado borrador"))
+            #workflow.trg_delete(
+            #    self._uid, 'stock.picking', picking.id, self._cr)
+            #workflow.trg_create(
+            #    self._uid, 'stock.picking', picking.id, self._cr)
+            #picking.message_post(
+            #    _("La orden de entrega se rehizo, convirtiendose en estado borrador"))
         return

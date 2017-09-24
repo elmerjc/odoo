@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_wizard_report_sale_order" model="ir.ui.view">
+            <field name="name">Reporte avanzado de pedidos</field>
+            <field name="model">wizard.report.sale.order</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="partner_id" domain="[('customer','=',True)]" options="{'no_create_edit': True}"/>
+                    </group>
+                    <p class="oe_gray">
+                        Elegir el rango de fecha
+                    </p>
+                    <group>
+                        <field name="date_inicio"/>
+                        <field name="date_fin"/>
+                    </group>
+                    <footer>
+                        <button name="print_report_sale_order" string="Imprimir" type="object"  class="oe_highlight"  />
+                        o
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_wizard_report_sale_order" model="ir.actions.act_window">
+            <field name="name">Reporte de Pedidos</field>
+            <field name="res_model">wizard.report.sale.order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_wizard_report_sale_order"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem 
+            id="menu_action_wizard_report_sale_order" 
+            action="action_wizard_report_sale_order" 
+            parent="base.next_id_64" 
+            groups="bolivia_factura.group_name_bolivia_manager"
+            sequence="2"/>
+
+    </data>
+</openerp>
+

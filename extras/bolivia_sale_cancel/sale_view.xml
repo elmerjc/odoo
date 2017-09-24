@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_view_order_cancel_form">
+            <field name="name">sale.order.cancel.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"></field>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_cancel']" position="after">
+                    <button name="sale_cancel" string="Cancelar" type="object" groups="base.group_user" confirm="¿Esta seguro de cancelar este pedido?"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

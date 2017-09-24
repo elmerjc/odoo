@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="pacifico.report_assets_common" name="pacifico report assets common" inherit_id="report.assets_common">
+		    <xpath expr="." position="inside">
+		        <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet"/>
+		    </xpath>
+		</template>
+		<template id="assets_backend" name="css assets" inherit_id="web.assets_backend">            
+            <xpath expr="//link[@href='/base/static/src/css/modules.css']" position="after">                
+                <link rel="stylesheet" href="/pacifico/static/src/css/style_pacifico.css"/>            
+            </xpath>        
+        </template>
+
+        <template id="minimal_layout_inherit" inherit_id="report.minimal_layout">
+			<xpath expr="//head" position="inside">
+			     <link rel='stylesheet' href="/pacifico/static/src/css/style_pacifico.css"/>
+			</xpath>
+		</template>
+    </data>
+</openerp>
+

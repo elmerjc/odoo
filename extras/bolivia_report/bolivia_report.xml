@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report 
+            id="action_report_sale_order_wizard"
+            string="Imprimir Reporte de Pedidos"
+            model="wizard.report.sale.order"
+            report_type = "qweb-pdf"
+            file="bolivia_report.report_sale_order"
+            name="bolivia_report.report_sale_order"
+            menu="False"
+        />
+
+        <record id="bolivia_report.action_report_sale_order_wizard" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="report.paperformat_euro" />
+        </record>
+    </data>
+</openerp>

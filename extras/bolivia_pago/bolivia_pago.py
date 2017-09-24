@@ -68,19 +68,22 @@ class bolivia_pago(osv.osv):
 
 		saldo = debe - haber
 
-		if saldo > 0:
-			if amortizacion > saldo:
-				sale_obj.write(cr, uid, ids, {'state': 'done'})
-				raise Warning(_('Pago a favor'), _("Se agrego al cliente %s un monto a favor") % (partner_data.name) )
-			else:
-				if amortizacion == saldo:
-					sale_obj.write(cr, uid, ids, {'state': 'done'})
-				else:
-					sale_obj.write(cr, uid, ids, {'state': 'progress'})
-		else:
-			raise except_orm(_('Error en el saldo'), _("El pedido ya fue pagado") )
-
 		val = {
 			'amount' : monto
 		}
-		return {'value' : val}
+
+		if saldo > 0:
+			if amortizacion > saldo:
+				#raise Warning(_('Pago a favor'), _("Se agrego al cliente %s un monto a favor") % (partner_data.name) )
+				sale_obj.write(cr, uid, sale_id, {'state': 'done'})
+				return {'value' : val}
+			else:
+				if amortizacion == saldo:
+					sale_obj.write(cr, uid, sale_id, {'state': 'done'})
+					return {'value' : val}
+				else:
+					sale_obj.write(cr, uid, sale_id, {'state': 'progress'})
+					return {'value' : val}
+		else:
+			raise except_orm(_('Error en el pago'), _("El pedido ya fue pagado") )
+			return {'value' : val}

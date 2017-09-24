@@ -957,10 +957,10 @@ class sale_order_line(osv.osv):
         }, readonly=True),
         'delay': fields.float('Delivery Lead Time', required=True, help="Number of days between the order confirmation and the shipping of the products to the customer", readonly=True, states={'draft': [('readonly', False)]}),
         'procurement_ids': fields.one2many('procurement.order', 'sale_line_id', 'Procurements'),
-        'x_container' : fields.char('Container', readonly=True),
-        'x_recibo' : fields.char('Recibo', readonly=True),
-        'x_item' : fields.char('Item', readonly=True),
-        'x_declaracion' : fields.char('Declaracion', readonly=True),
+        'x_container' : fields.char('Container'),
+        'x_recibo' : fields.char('Recibo'),
+        'x_item' : fields.char('Item'),
+        'x_declaracion' : fields.char('Declaracion'),
     }
     _order = 'order_id desc, sequence, id'
     _defaults = {

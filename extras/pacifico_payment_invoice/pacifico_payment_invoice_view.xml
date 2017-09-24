@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    <record id="pacifico_payment_invoice_search" model="ir.ui.view">
+        <field name="name">pacifico.payment.invoice.search</field>
+        <field name="model">pacifico.payment.invoice</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Pagos">
+                <field name="date" string="Pagos" filter_domain="[('date','ilike',self)]"/>
+                <separator/>
+                <field name="partner_id" operator="child_of"/>
+                <separator/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Cliente" name="group_by_partner_id" context="{'group_by':'partner_id'}"/>
+                    <filter string="Factura" name="group_by_invoice_number" context="{'group_by':'invoice_number'}"/>
+                    <filter string="Metodo de pago" name="group_by_bank" context="{'group_by':'metodo'}"/>
+                    <filter string="Fecha" name="group_by_date" context="{'group_by':'date:day'}"/>
+                </group>
+           </search>
+        </field>
+      </record>
+
+      <record id="pacifico_payment_invoice_graph" model="ir.ui.view">
+        <field name="name">pacifico.payment.invoice.graph</field>
+        <field name="model">pacifico.payment.invoice</field>
+        <field name="arch" type="xml">
+            <graph string="Pagos" type="bar">
+                <field name="partner_id"/>
+                <field name="amount" operator="+"/>
+            </graph>
+        </field>
+      </record>
+
+      <record id="pacifico_payment_invoice_tree" model="ir.ui.view">
+        <field name="name">pacifico.payment.invoice.tree</field>
+        <field name="model">pacifico.payment.invoice</field>
+        <field name="arch" type="xml">
+            <tree string="Pagos">
+                <field name="partner_id" groups="base.group_user"/>
+                <field name="invoice_number"/>
+                <field name="date"/>
+                <field name="metodo"/>
+                <field name="name"/>
+                <field name="amount" sum="Total sin impuesto"/>
+            </tree>
+        </field>
+      </record>
+		
+	  <menuitem id="menu_pacifico_payment_view"  name="Pagos" parent="base.menu_base_partner"/>
+	  	
+      <record id="action_pacifico_payment_invoice" model="ir.actions.act_window">
+        <field name="name">Pagos</field>
+        <field name="res_model">pacifico.payment.invoice</field>
+        <field name="view_mode">tree,graph</field>
+        <field name="search_view_id" ref="pacifico_payment_invoice_search"/>
+      </record>
+
+      <menuitem id="pacifico_payment_action"  name="Pagos" parent="menu_pacifico_payment_view" action="action_pacifico_payment_invoice" />
+
+
+    </data>
+</openerp>

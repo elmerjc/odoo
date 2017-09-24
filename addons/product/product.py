@@ -521,7 +521,7 @@ class product_template(osv.osv):
         return res
 
     _columns = {
-        'name': fields.char('Name', required=True, translate=True, select=True),
+        'name': fields.char('Name', size=35, required=True, translate=True, select=True),
         'product_manager': fields.many2one('res.users','Product Manager'),
         'description': fields.text('Description',translate=True,
             help="A precise description of the Product, used only for internal information purposes."),

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+        <record model="ir.module.category" id="pacifico_payment_invoice">
+            <field name="name">Pagos de facturas</field> 
+            <field name="sequence">7</field>
+        </record>
+
+        <record id="pacifico_user" model="res.groups">
+            <field name="name">Usuario</field>
+            <field name="category_id" ref="pacifico_payment_invoice"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="pacifico_manager" model="res.groups">
+            <field name="name">Administrador</field>
+            <field name="category_id" ref="pacifico_payment_invoice"/>
+            <field name="implied_ids" eval="[(4, ref('pacifico_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+    </data>
+</openerp>

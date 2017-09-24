@@ -10,8 +10,8 @@
                     <field name="user_id" invisible="1"/>
                 </xpath>
                 <xpath expr="//field[@name='user_id']" position="after">
-                    <field name="pagos_realizados"/>
-                    <field name="residual"/>
+                    <field name="pagos_realizados" sum="Total de pagos"/>
+                    <field name="residual" sum="Total de saldo"/>
                 </xpath>
             </field>
         </record>

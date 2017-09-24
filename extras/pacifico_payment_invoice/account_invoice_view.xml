@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_account_invoice_payment_tree" model="ir.ui.view">
+            <field name="name">account.invoice.payment.tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"></field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='residual']" position="replace">
+                    <field name="residual" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='residual']" position="after">
+                    <field name="pagos_realizados" sum="Total de pagos"/>
+                    <field name="saldo" sum="Total de saldo"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_invoice_payment_form" model="ir.ui.view">
+            <field name="name">account.invoice.payment.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Payments']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='invoice_pay_customer']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='invoice_pay_customer'][last()]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='217']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='residual'][last()]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='fiscal_position']" position="before">
+                    <field name="partner_amount_positive"/>
+                </xpath>
+                <xpath expr="//page[@string='Invoice Lines']" position="after">
+                    <page string="Pagos">
+                        <field name="payment_line" nolabel="1">
+                            <tree string="Pagos" editable="bottom">
+                                <field name="invoice_id" invisible="1"/>
+                                <field name="partner_id" invisible="1"/>
+                                <field name="date"/>
+                                <field name="invoice_number"/>
+                                <field name="metodo"/>
+                                <field name="name"/>
+                                <field name="invoice_total" invisible="1"/>
+                                <field name="amount" on_change="check_pago_change(parent.number, parent.partner_id, amount, invoice_total, context)"/>
+                            </tree>
+                        </field>
+                        <div class="oe_clear"/>
+                        <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                            <div class="oe_subtotal_footer_separator oe_inline">
+                                <label for="amount_total" />
+                            </div>
+                            <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            <div class="oe_subtotal_footer_separator oe_inline">
+                                <label for="saldo" />
+                            </div>
+                            <field name="saldo" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <div class="oe_clear"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
